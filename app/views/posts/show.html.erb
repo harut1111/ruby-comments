@@ -1,0 +1,32 @@
+<%= link_to 'new', new_post_path %>
+<%= link_to 'edit', edit_post_path %>
+<%= button_to 'destroy',@post, method: :delete %>
+<%= button_to 'logeout', destroy_user_session_path, method: :delete  %>
+
+
+<% if current_user %>
+<%= form_for(Comment.new,url: post_comment_path(@post)) do |f|%>
+	<%= f.text_area :content %>
+	<%= f.submit %>
+<% end %>
+<% else %>
+	<textarea disabled></textarea>
+<% end %>
+
+
+<h1<%= @post.title %>></h1>
+
+<p><%= @post.body %></p>
+<p><%= @post.comments.count%></p>
+
+
+<% @post.comments.each do |comment| %>
+<p>
+	<%= comment.content%>
+</p>
+<p style="margin-left: 10%;">
+	<%= comment.user.email%>
+</p>
+<% end %>
+
+
